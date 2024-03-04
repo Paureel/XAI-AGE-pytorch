@@ -102,7 +102,8 @@ def get_indicies(genetic_data, target, additional_data=None):
     :return: List(str); List of sample names found in all data modalities
     """
     for gd in genetic_data:
-        genetic_data[gd].dropna(inplace=True)
+        genetic_data[gd].fillna(0, inplace=True)
+
     target.dropna(inplace=True)
     ind_sets = [set(genetic_data[inp].index.drop_duplicates(keep=False)) for inp in genetic_data]
     ind_sets.append(target.index.drop_duplicates(keep=False))
