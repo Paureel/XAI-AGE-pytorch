@@ -22,7 +22,7 @@ class SankeyDiag:
         self.grouped_imps = self.group_importance_scores(target)
         self.normalize_layerwise()
         self.rn = self.get_reactome_network_for_imps()
-        self.nbr_displayed = 5
+        self.nbr_displayed = 30
 
         self.initialize_links()
         self.gene_feature_to_gene_layer()
