@@ -255,7 +255,7 @@ class SankeyDiag:
 
 
     def get_short_names(self):
-        short_names = pd.read_csv('/mnt/disks/pancan/data/pathways_short_names.csv')
+        short_names = pd.read_csv('pathways_short_names.csv')
         short_names['Short name (Eli)'].fillna(short_names['Short name (automatic)'], inplace=True)
         short_names.set_index('Full name', inplace=True)
         short_name_dict = short_names['Short name (Eli)'].to_dict()
