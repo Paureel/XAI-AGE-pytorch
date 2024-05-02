@@ -72,7 +72,7 @@ class SankeyDiag:
             grouped_imps = imps_w_target.groupby(['Gene/Pathway', 'Layer', response]).mean().diff().abs()
             grouped_imps = grouped_imps.query('{} == 1'.format(response)).reset_index()
         else:
-            grouped_imps = pd.DataFrame(self.all_imps.groupby(['Gene/Pathway', 'Layer']).mean().abs().reset_index())
+            grouped_imps = pd.DataFrame(self.all_imps.groupby(['Gene/Pathway', 'Layer'])['Importance'].mean().abs().reset_index())
         return grouped_imps
     
     
