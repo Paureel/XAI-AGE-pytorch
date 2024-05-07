@@ -22,7 +22,7 @@ class SankeyDiag:
         self.grouped_imps = self.group_importance_scores(target)
         self.normalize_layerwise()
         self.rn = self.get_reactome_network_for_imps()
-        self.nbr_displayed = 30
+        self.nbr_displayed = 5
 
         self.initialize_links()
         self.gene_feature_to_gene_layer()
@@ -88,7 +88,10 @@ class SankeyDiag:
         self.genes = self.grouped_imps[self.grouped_imps['Layer']=='gene']['Gene/Pathway'].unique()
         rn = ReactomeNetwork.ReactomeNetwork(self.genes)
         pathway_encoding = rn.pathway_encoding.set_index('ID')['pathway'].to_dict()
-        rn.pathway2genes['pathway'] = rn.pathway2genes['pathway'].apply(lambda x: pathway_encoding[x])
+        default_value = None
+        rn.pathway2genes['pathway'] = rn.pathway2genes['pathway'].apply(lambda x: pathway_encoding.get(x, default_value))
+
+        
         rn.hierarchy['source'] = rn.hierarchy['source'].apply(lambda x: pathway_encoding[x]) 
         rn.hierarchy['target'] = rn.hierarchy['target'].apply(lambda x: pathway_encoding[x])
         return rn
